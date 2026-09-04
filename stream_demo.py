@@ -9,13 +9,13 @@ load_dotenv()
 WS = {"anthropic-workspace-id": os.environ["ANTHROPIC_WORKSPACE_ID"]}
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful support assistant. Answer in one short sentence."),
+    ("system", "You are a helpful support assistant."),
     ("human", "{question}"),
 ])
 llm = ChatAnthropic(model="claude-sonnet-4-5", temperature=0, default_headers=WS)
 
 chain = prompt | llm | StrOutputParser()
 
-for chunk in chain.stream({"question": "How long do refunds take?"}):
+for chunk in chain.stream({"question": "Explain your returns process step by step."}):
     print(chunk, end="", flush=True)
 print()
